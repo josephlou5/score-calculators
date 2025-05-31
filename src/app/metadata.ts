@@ -1,11 +1,9 @@
 import { Metadata } from "next";
 
 /** Title of the app. */
-// TODO: Update title.
-export const TITLE = "App Title";
+export const TITLE = "Score Calculators";
 /** GitHub repo name (which becomes the base path). */
-// TODO: Update base path.
-export const BASE_PATH = "app-title";
+export const BASE_PATH = "score-calculators";
 
 export const GITHUB_LINK = `https://github.com/josephlou5/${BASE_PATH}`;
 
@@ -18,7 +16,6 @@ export function metadataForPage(pageTitle: string = ""): Metadata {
   return {
     title,
     applicationName: TITLE,
-    // TODO: Update description.
-    description: "App description",
+    description: "A static webpage to calculate scores for some board games.",
   };
 }
