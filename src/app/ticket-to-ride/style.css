@@ -1,0 +1,43 @@
+#score-sheet {
+  display: grid;
+  gap: 0.25em 0.5em;
+  grid-template-rows:
+    auto
+    [name-row] auto
+    [score-row] auto
+    [completed-destinations-row] auto
+    [failed-destinations-row] auto
+    repeat(6, [routes-count-row] auto)
+    [train-count-row] auto
+    [longest-path-row] auto
+    auto;
+  grid-template-columns:
+    min-content
+    repeat(
+      5,
+      [player-col-left-side] min-content [player-col] minmax(200px, 1fr)
+        min-content
+    );
+  align-items: center;
+  justify-items: stretch;
+
+  *:not(.label-col) {
+    text-align: center;
+  }
+}
+
+.label-col {
+  grid-column: 1;
+  justify-self: start;
+  font-weight: bold;
+}
+
+.winner-col {
+  align-self: stretch;
+  background-color: rgb(183 225 205);
+  z-index: -10;
+}
+
+.input-group.longest-path * {
+  border-color: var(--bs-form-valid-border-color);
+}

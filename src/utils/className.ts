@@ -6,11 +6,13 @@
  */
 export function makeClassName(
   classNames: string[] | { [key: string]: boolean }
-): string {
+): string | undefined {
   if (Array.isArray(classNames)) {
-    return classNames.join(" ");
+    return classNames.join(" ") || undefined;
   }
-  return Object.entries(classNames)
-    .flatMap(([className, include]) => (include ? [className] : []))
-    .join(" ");
+  return (
+    Object.entries(classNames)
+      .flatMap(([className, include]) => (include ? [className] : []))
+      .join(" ") || undefined
+  );
 }

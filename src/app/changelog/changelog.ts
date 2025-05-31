@@ -21,6 +21,11 @@ export const CHANGELOG: Version[] = [
     timestamp: "2025-05-30 22:56",
     description: [{ text: "Initial commit" }],
   },
+  {
+    version: [0, 2],
+    timestamp: "2025-05-31 14:40",
+    description: [{ text: "Add Ticket to Ride score sheet" }],
+  },
 ].sort((v1, v2) => -cmpVersions(v1.version, v2.version));
 
 /** Returns the current version number as a string. */

@@ -19,7 +19,11 @@ export default function Page() {
         </span>
       </div>
 
-      <div className="mb-2">Page Content</div>
+      <ul className="mb-2">
+        <li>
+          <Link href="/ticket-to-ride">Ticket to Ride</Link>
+        </li>
+      </ul>
     </>
   );
 }
