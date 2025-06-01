@@ -3,6 +3,7 @@
 import { CSSProperties, FocusEvent, Fragment, useState } from "react";
 
 import { makeClassName } from "../../utils/className";
+import { enumerate, map, sum, zip } from "../../utils/itertools";
 import { countLabel } from "../../utils/pluralize";
 import { NumberInput, extractIntList } from "../../utils/numberInput";
 
@@ -65,16 +66,14 @@ export function TicketToRideScoreSheet() {
   ];
 
   const longestPath = Math.max(
-    ...playerInfos.map((playerInfo) => playerInfo.longestPath)
-  );
-  const pointScores = playerInfos.map((playerInfo) =>
-    calculateScore(playerInfo, longestPath)
+    ...map(playerInfos, (playerInfo: PlayerInfo) => playerInfo.longestPath)
   );
 
+  const pointScores: number[] = [];
   const winnerIndices: number[] = [];
-  for (let i = 0; i < playerInfos.length; i++) {
-    const currPlayerInfo = playerInfos[i];
-    const currScore = pointScores[i];
+  for (const [i, currPlayerInfo] of enumerate(playerInfos)) {
+    const currScore = calculateScore(currPlayerInfo, longestPath);
+    pointScores.push(currScore);
 
     if (winnerIndices.length === 0) {
       if (currScore !== 0) {
@@ -169,7 +168,10 @@ export function TicketToRideScoreSheet() {
         }
 
         const numTrainsUsed = sum(
-          playerInfo.routeCounts.map((count, i) => count * (i + 1))
+          map(
+            playerInfo.routeCounts,
+            (count: number, i: number) => count * (i + 1)
+          )
         );
         const hadLongestPath =
           longestPath > 0 && playerInfo.longestPath === longestPath;
@@ -326,7 +328,10 @@ function calculateScore(playerInfo: PlayerInfo, longestPath: number): number {
   const destinationsTotal =
     sum(playerInfo.completedDestinations) - sum(playerInfo.failedDestinations);
   const routesTotal = sum(
-    ROUTE_LENGTH_SCORES.map((score, i) => playerInfo.routeCounts[i] * score)
+    map(
+      zip(playerInfo.routeCounts, ROUTE_LENGTH_SCORES),
+      ([score, count]: [number, number]) => count * score
+    )
   );
   // All players who have the longest path will get the points.
   const longestPathTotal =
@@ -342,8 +347,4 @@ function getDestinationsList(str: string): number[] {
   // Remove '0's.
   values.splice(0, values.lastIndexOf(0) + 1);
   return values;
-}
-
-function sum(values: Array<number>): number {
-  return values.reduce((total, curr) => total + curr, 0);
 }

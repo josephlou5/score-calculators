@@ -11,6 +11,8 @@ export interface NumberInputProps
 /** A number input component that only allows numbers composed of digits. */
 export function NumberInput({
   allowNegative = true,
+  onNumberInput,
+  onNumberChange,
   onInput,
   onChange,
   ...props
@@ -19,13 +21,13 @@ export function NumberInput({
 
   function handleInput(event: FormEvent<HTMLInputElement>) {
     const value = extractInt(event.currentTarget.value, extractIntOptions);
-    props.onNumberInput?.(value);
+    onNumberInput?.(value);
     onInput?.(event);
   }
 
   function handleChange(event: ChangeEvent<HTMLInputElement>) {
     const value = extractInt(event.currentTarget.value, extractIntOptions);
-    props.onNumberChange?.(value);
+    onNumberChange?.(value);
     onChange?.(event);
   }
 
