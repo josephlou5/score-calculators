@@ -9,8 +9,6 @@ import { NumberInput, extractIntList } from "../../utils/numberInput";
 
 import "./style.css";
 
-// Rules from: https://cdn.1j1ju.com/medias/2c/f9/7f-ticket-to-ride-rulebook.pdf
-
 // Constants.
 const NUM_TOTAL_TRAINS = 45;
 const LONGEST_PATH_POINTS = 10;
